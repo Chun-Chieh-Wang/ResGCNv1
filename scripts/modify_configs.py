@@ -6,6 +6,7 @@ parser = argparse.ArgumentParser(description='Modify Configs')
 parser.add_argument('--path', type=str, default='', help='Your path to save preprocessed dataset')
 parser.add_argument('--ntu60_path', type=str, default='', help='Your path to save NTU 60 dataset (S001 to S017)')
 parser.add_argument('--ntu120_path', type=str, default='', help='Your path to save NTU 120 dataset (S018 to S032)')
+parser.add_argument('--etri_path', type=str, default='', help='Your path to save ETRI Activity 3D dataet')
 args, _ = parser.parse_known_args()
 
 for file in os.listdir('./configs'):
@@ -20,6 +21,8 @@ for file in os.listdir('./configs'):
             new_line = f'    ntu60_data_path: {args.ntu60_path}\n'
         elif ' ntu120_data_path:' in line:
             new_line = f'    ntu120_data_path: {args.ntu120_path}\n'
+        elif ' etri_data_path:' in line:
+            new_line=  f'    etri_data_path: {args.etri_path}\n'
         else:
             new_line = line
         fr.write(new_line)
