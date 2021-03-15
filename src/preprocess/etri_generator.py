@@ -75,36 +75,35 @@ class NTU_Generator():
                 frame_info = {}
                 frame_info['numBody'] = int(len(csv.bodyindexID.unique()))
                 frame_info['bodyInfo'] = []
-
-                for m in range(frame_info['numBody']):
-                    body_info = {}
-                    body_info_key = [
-                        'bodyID', 'clipedEdges', 'handLeftConfidence',
-                        'handLeftState', 'handRightConfidence', 'handRightState',
-                        'isResticted', 'leanX', 'leanY', 'trackingState'
+                # body_info_key = [
+                #     'bodyindexID', 'trackingID'
+                # ]
+                # body_info={
+                #     k: float(v)
+                #     for k, v in zip(body_info_key,)
+                # }
+                for i, row in csv.iterrows():
+                    #note: iter didn't provide colorX and colorY
+                    joint_info_key = [
+                        'x', 'y', 'z', 'depthX', 'depthY',
+                        'orientationW', 'orientationX', 'orientationY',
+                        'orientationZ', 'trackingState'
                     ]
-                    # Repackage into a {body_info_key(mention on top),data} dictionary
-
-                    ##TODO iterrows
-                    body_info = {
-                        k: float(v)
-                        for k, v in zip(body_info_key, f.readline().split())
-                    }
-                    body_info['numJoint'] = int(f.readline())
-                    body_info['jointInfo'] = []
-                    for v in range(body_info['numJoint']):
-                        joint_info_key = [
-                            'x', 'y', 'z', 'depthX', 'depthY', 'colorX', 'colorY',
-                            'orientationW', 'orientationX', 'orientationY',
-                            'orientationZ', 'trackingState'
-                        ]
-                        joint_info = {
-                            k: float(v)
-                            for k, v in zip(joint_info_key, f.readline().split())
-                        }
-                        body_info['jointInfo'].append(joint_info)
-                    frame_info['bodyInfo'].append(body_info)
-                skeleton_sequence['frameInfo'].append(frame_info)
+                    frame_info['bodyInfo']=[]
+                    for b in frame_info['numBody']:
+                        body_info['jointInfo'] = []
+                        for j in range(len(row)):
+                            if j<3:
+                                pass
+                            else: 
+                                joint_info = {
+                                    k: float(v)
+                                    for k, v in zip(joint_info_key,row[j])
+                                }
+                                if j%10==2:
+                                    body_info['jointInfo'].append(joint_info)
+                        frame_info['bodyInfo'].append(body_info)
+                    skeleton_sequence['frameInfo'].append(frame_info)
 
         return skeleton_sequence
 
