@@ -19,10 +19,10 @@ dataset_args:
     train_batch_size: 32
     eval_batch_size: 64
     preprocess: False
-    path: /data1/yifan.song/SkeletonPreprocess
-    ntu60_data_path: /data1/yifan.song/NTU_RGBD/nturgbd_skeletons_s001_to_s017
-    ntu120_data_path: /data1/yifan.song/NTU_RGBD/nturgbd_skeletons_s018_to_s032
-    etri_data_path: 
+    path: d:\ETRI_preprocessed
+    ntu60_data_path: 
+    ntu120_data_path: 
+    etri_data_path: d:\ETRI\Skeleton
 # Model
 # pa, ca, fa, sa, pca, psa
 # b15, b19, b23, b29, n39, n51, n57, n75
